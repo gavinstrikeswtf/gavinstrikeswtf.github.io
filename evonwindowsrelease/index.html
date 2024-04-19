@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evon Win</title>
+<style>
+    body {
+        background-color: #111;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    
+    #countdown {
+        font-size: 2rem;
+    }
+</style>
+</head>
+<body>
+    <div id="countdown">
+        <p>Evon Windows is releasing in</p>
+        <p id="timer"></p>
+    </div>
+
+<script>
+
+    const releaseDate = new Date("9999-12-31T23:59:59").getTime();
+
+
+    const x = setInterval(function() {
+
+        const now = new Date().getTime();
+
+        const distance = releaseDate - now;
+
+       
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "Now!";
+        }
+    }, 1000);
+</script>
+</body>
+</html>
