@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gavinstrikes Payment Gateway</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0e0f14;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #1a1b24;
+            padding: 20px;
+            border-bottom: 1px solid #2a2b35;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.6em;
+            margin: 0;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-icon {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-icon i {
+            margin-right: 5px;
+        }
+
+        .header-icon:hover {
+            color: #00bfff;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .sidebar {
+            background: #1a1b24;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 300px;
+            margin-right: 20px;
+            width: 100%;
+        }
+
+        .sidebar h2 {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .sidebar p {
+            font-size: 1.2em;
+            margin: 5px 0;
+            color: #b0b3c1;
+        }
+
+        .content {
+            background: #1a1b24;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            flex: 1;
+            padding: 30px;
+            max-width: 800px;
+        }
+
+        .content h2 {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            background: #2a2b35;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .option:hover {
+            background: #3a3b45;
+        }
+
+        .option i {
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+
+        .option .option-text {
+            font-size: 1.2em;
+        }
+
+        .continue-button {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .continue-button button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #00bfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .continue-button button:hover {
+            background-color: #00a0e0;
+        }
+
+        .more-methods {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #b0b3c1;
+        }
+
+        .more-methods a {
+            color: #00bfff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .more-methods a:hover {
+            color: #00a0e0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.8em;
+            color: #b0b3c1;
+            background: #1a1b24;
+            border-top: 1px solid #2a2b35;
+        }
+
+        footer a {
+            color: #00bfff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #00a0e0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar {
+                margin: 0 0 20px 0;
+            }
+
+            .content {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Oblivity Software Checkout</h1>
+        <div class="header-icons">
+            <a href="#" class="header-icon"><i class="fas fa-store"></i> Store</a>
+            <a href="#" class="header-icon"><i class="fas fa-life-ring"></i> Support</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <h2>Product Information</h2>
+            <p><strong>License:</strong> Lifetime</p>
+            <p><strong>Total:</strong> $20.00</p>
+            
+            <p><strong>Description:</strong> Get lifetime access to Oblivity External. Enjoy premium features and updates for a one-time payment.</p>
+            <p><strong>Seller: Oblivity Software LLC</strong></p>
+            
+        </div>
+        <div class="content">
+            <h2>Choose Your Payment Method</h2>
+            <div class="option" id="cryptoOption">
+                <i class="fab fa-bitcoin"></i>
+                <div class="option-text">Crypto</div>
+            </div>
+            <div class="option" id="cashAppOption">
+                <i class="fas fa-money-bill-wave"></i>
+                <div class="option-text">CashApp</div>
+            </div>
+            <div class="continue-button" id="continueButton" style="display: none;">
+                <button>Continue</button>
+            </div>
+            <p class="more-methods">
+                Want more payment methods? <a href="https://oblivity.wtf/resellers">Check out our resellers</a>
+            </p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 <a href="https://gavinstrikes.wtf">GavinStrikes Payment Gateway</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        
+            const cryptoOption = document.getElementById('cryptoOption');
+            const cashAppOption = document.getElementById('cashAppOption');
+            const continueButton = document.getElementById('continueButton');
+
+            cryptoOption.addEventListener('click', function() {
+                showContinueButton();
+            });
+
+            cashAppOption.addEventListener('click', function() {
+                showContinueButton();
+            });
+
+
+            function showContinueButton() {
+                continueButton.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
