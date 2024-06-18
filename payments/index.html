@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gavinstrikes Payment Gateway</title>
+    <title>GavinStrikes Payment Gateway</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
@@ -71,6 +71,7 @@
             max-width: 300px;
             margin-right: 20px;
             width: 100%;
+            text-align: left; 
         }
 
         .sidebar h2 {
@@ -125,8 +126,8 @@
 
         .continue-button {
             margin-top: 20px;
-            display: flex;
-            justify-content: center;
+            display: none; 
+         
         }
 
         .continue-button button {
@@ -160,6 +161,87 @@
             color: #00a0e0;
         }
 
+        .cancel-invoice-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .cancel-invoice-button button {
+            padding: 10px 20px;
+            font-size: 1em; 
+            background-color: #ff6961; 
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center; 
+        }
+
+        .cancel-invoice-button button i {
+            margin-right: 8px; 
+        }
+
+        .cancel-invoice-button button:hover {
+            background-color: #e03a2e; 
+        }
+
+        .discord-panel {
+            background: #1a1b24;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        .discord-panel h2 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: #5865F2; 
+        }
+
+        .discord-panel p {
+            font-size: 1.2em;
+            color: #b0b3c1;
+            margin-bottom: 20px;
+        }
+
+        .discord-panel a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #5865F2;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .discord-panel a i {
+            margin-right: 8px;
+        }
+
+        .discord-panel a:hover {
+            background-color: #4854c4;
+        }
+
+        .discord-background {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background-image: url('/mnt/data/image.png'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
         footer {
             text-align: center;
             padding: 10px 0;
@@ -167,6 +249,7 @@
             color: #b0b3c1;
             background: #1a1b24;
             border-top: 1px solid #2a2b35;
+            clear: both;
         }
 
         footer a {
@@ -191,6 +274,12 @@
 
             .content {
                 max-width: 100%;
+                margin-right: 0; 
+            }
+
+            .discord-panel {
+                max-width: 100%;
+                margin: 20px 0; 
             }
         }
     </style>
@@ -213,49 +302,55 @@
             <p><strong>Description:</strong> Get lifetime access to Oblivity External. Enjoy premium features and updates for a one-time payment.</p>
             <p><strong>Seller: Oblivity Software LLC</strong></p>
             
+            <div class="cancel-invoice-button">
+                <button><i class="fas fa-times"></i> Cancel Invoice</button>
+            </div>
         </div>
         <div class="content">
             <h2>Choose Your Payment Method</h2>
-            <div class="option" id="cryptoOption">
+            <div class="option" onclick="selectOption(this)">
                 <i class="fab fa-bitcoin"></i>
                 <div class="option-text">Crypto</div>
             </div>
-            <div class="option" id="cashAppOption">
-                <i class="fas fa-money-bill-wave"></i>
+            <div class="option" onclick="selectOption(this)">
+                <i class="fas fa-money-bill-alt"></i>
                 <div class="option-text">CashApp</div>
             </div>
-            <div class="continue-button" id="continueButton" style="display: none;">
+            <div class="more-methods">Want more payment methods? <a href="#">Check out our resellers</a></div>
+            <div class="continue-button" id="continueButton">
                 <button>Continue</button>
             </div>
-            <p class="more-methods">
-                Want more payment methods? <a href="https://oblivity.wtf/resellers">Check out our resellers</a>
-            </p>
         </div>
     </div>
+
+    <div class="discord-panel">
+        <div class="discord-background"></div> 
+        <h2>Discord Server</h2>
+        <p>Having trouble with payments? Or just looking to chat? Join our server!</p>
+        <a href="#"><i class="fab fa-discord"></i> Join our Discord</a>
+    </div>
+    
     <footer>
-        <p>&copy; 2024 <a href="https://gavinstrikes.wtf">GavinStrikes Payment Gateway</a></p>
+        <p>&copy; 2024 GavinStrikes Payment Gateway. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        
-            const cryptoOption = document.getElementById('cryptoOption');
-            const cashAppOption = document.getElementById('cashAppOption');
-            const continueButton = document.getElementById('continueButton');
+        function selectOption(element) {
 
-            cryptoOption.addEventListener('click', function() {
-                showContinueButton();
+            var options = document.querySelectorAll('.option');
+            options.forEach(function(option) {
+                option.style.backgroundColor = '#2a2b35';
             });
 
-            cashAppOption.addEventListener('click', function() {
-                showContinueButton();
-            });
+         
+            element.style.backgroundColor = '#5865F2';
+            
+       
+            document.getElementById('continueButton').style.display = 'flex'; // Change to 'flex' to center the button
+        }
 
-
-            function showContinueButton() {
-                continueButton.style.display = 'block';
-            }
-        });
+   
+        document.getElementById('continueButton').style.display = 'none';
     </script>
 </body>
 </html>
