@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>gayyyy</title>
+    <title>gay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         body {
             display: flex;
@@ -37,11 +38,49 @@
             margin-top: 10px;
             font-size: 18px;
         }
-        .shop {
+        #shopIcon {
             display: none;
+            font-size: 24px;
+            cursor: pointer;
             margin-top: 20px;
         }
-        .shop button {
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #1e1e1e;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+        .modal button {
             margin: 5px;
             padding: 10px 20px;
             font-size: 16px;
@@ -52,7 +91,7 @@
             color: white;
             transition: background-color 0.2s;
         }
-        .shop button:hover {
+        .modal button:hover {
             background-color: #218838;
         }
         #hateMessage {
@@ -75,38 +114,92 @@
         <img id="clickImage" src="download.png" alt="Minecraft Face">
         <p id="message">Click to make demon mad</p>
         <p id="clickCount">Clicks: 0</p>
-        <div class="shop" id="shop">
-            <button onclick="alert('stole')">Steal all netherite</button>
-            <button onclick="alert('pop is now mad')">Make pop mad</button>
-        </div>
+        <i id="shopIcon" class="fas fa-store"></i>
         <audio id="demonSound" src="demon.mp3"></audio>
+    </div>
+    <div id="shopModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="madImageContainer"></div>
+            <button id="stealButton">Steal all netherite</button>
+            <button id="makeMadButton">Make pop mad</button>
+        </div>
     </div>
     <script>
         let clickCount = 0;
         const clickImage = document.getElementById('clickImage');
         const clickCountElem = document.getElementById('clickCount');
         const hateMessage = document.getElementById('hateMessage');
-        const shop = document.getElementById('shop');
+        const shopIcon = document.getElementById('shopIcon');
+        const shopModal = document.getElementById('shopModal');
+        const closeModal = document.querySelector('.close');
         const demonSound = document.getElementById('demonSound');
+        const madImageContainer = document.getElementById('madImageContainer');
+        const stealButton = document.getElementById('stealButton');
+        const makeMadButton = document.getElementById('makeMadButton');
 
         clickImage.addEventListener('click', function() {
             clickCount++;
             clickCountElem.textContent = 'Clicks: ' + clickCount;
 
+          
             demonSound.currentTime = 0;
             demonSound.play();
 
-            const hueValue = Math.min(clickCount * 2, 180);
+
+            const hueValue = Math.min(clickCount * 2, 180); 
             clickImage.style.filter = `hue-rotate(${hueValue}deg)`;
 
             if (clickCount >= 50) {
-                shop.style.display = 'block';
+                shopIcon.style.display = 'block';
             }
 
             if (clickCount >= 200) {
                 hateMessage.style.display = 'block';
             }
         });
+
+        shopIcon.addEventListener('click', function() {
+            shopModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', function() {
+            shopModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == shopModal) {
+                shopModal.style.display = 'none';
+            }
+        });
+
+        stealButton.addEventListener('click', function() {
+            showMadImage('clash.png');
+            playMadSound('hehe.mp3');
+        });
+
+        makeMadButton.addEventListener('click', function() {
+            showMadImage('reallymad.png');
+            playMadSound('mad.mp3');
+        });
+
+        function showMadImage(imageSrc) {
+            const madImage = document.createElement('img');
+            madImage.src = imageSrc;
+            madImage.style.maxWidth = '100%';
+            madImage.style.marginTop = '20px';
+            madImageContainer.innerHTML = '';
+            madImageContainer.appendChild(madImage);
+
+            setTimeout(function() {
+                madImageContainer.innerHTML = '';
+            }, 5000); 
+        }
+
+        function playMadSound(soundSrc) {
+            const madSound = new Audio(soundSrc);
+            madSound.play();
+        }
     </script>
 </body>
 </html>
