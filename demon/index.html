@@ -19,36 +19,86 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
-        #clickButton {
-            padding: 10px 20px;
-            font-size: 16px;
+        #clickImage {
+            width: 100px;
+            height: 100px;
             cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
+            border-radius: 50%;
+            transition: transform 0.2s, filter 0.2s;
         }
-        #clickButton:hover {
-            background-color: #0056b3;
+        #clickImage:hover {
+            transform: scale(1.1);
         }
         #message, #clickCount {
             margin-top: 10px;
             font-size: 18px;
         }
+        .shop {
+            display: none;
+            margin-top: 20px;
+        }
+        .shop button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+        }
+        .shop button:hover {
+            background-color: #218838;
+        }
+        #hateMessage {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <button id="clickButton">Click me</button>
+        <div id="hateMessage">KILL YOURSELF</div>
+        <img id="clickImage" src="download.png" alt="Minecraft Face">
         <p id="message">Click to make demon mad</p>
         <p id="clickCount">Clicks: 0</p>
+        <div class="shop" id="shop">
+            <button onclick="alert('stole')">Steal all netherite</button>
+            <button onclick="alert('pop is now mad')">Make pop mad</button>
+        </div>
     </div>
     <script>
         let clickCount = 0;
-        document.getElementById('clickButton').addEventListener('click', function() {
+        const clickImage = document.getElementById('clickImage');
+        const clickCountElem = document.getElementById('clickCount');
+        const hateMessage = document.getElementById('hateMessage');
+        const shop = document.getElementById('shop');
+
+        clickImage.addEventListener('click', function() {
             clickCount++;
-            document.getElementById('clickCount').textContent = 'Clicks: ' + clickCount;
+            clickCountElem.textContent = 'Clicks: ' + clickCount;
+
+       
+            const hueValue = Math.min(clickCount * 2, 180); 
+            clickImage.style.filter = `hue-rotate(${hueValue}deg)`;
+
+            if (clickCount >= 50) {
+                shop.style.display = 'block';
+            }
+
+            if (clickCount >= 200) {
+                hateMessage.style.display = 'block';
+            }
         });
     </script>
 </body>
