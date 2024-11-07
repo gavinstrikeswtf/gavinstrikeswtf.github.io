@@ -15,20 +15,39 @@
       box-sizing: border-box;
     }
 
-
     body {
       font-family: 'Arial', sans-serif;
       color: #e0e0e0;
       line-height: 1.6;
-      overflow-x: hidden;
+      overflow: hidden;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       position: relative;
-      height: 100vh; 
-      overflow: hidden; 
-     
+      height: 100vh;
     }
 
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    .loading-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     .bg {
       position: absolute;
@@ -38,21 +57,21 @@
       min-height: 100%;
       width: auto;
       height: auto;
-      z-index: -1; 
-      transform: translate(-50%, -50%); 
-      overflow: hidden; 
+      z-index: -1;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
     }
 
-    
     .container {
       padding: 20px;
       max-width: 900px;
       margin: 0 auto;
       text-align: center;
-      position: relative; 
-      z-index: 1; 
+      position: relative;
+      z-index: 1;
       transition: transform 0.3s ease;
-      transform: translateY(-10px); 
+      transform: translateY(-10px);
+      display: none;
     }
 
     header {
@@ -64,7 +83,7 @@
       height: 140px;
       border-radius: 50%;
       object-fit: cover;
-      margin-top: 25px; 
+      margin-top: 25px;
       border: 4px solid #ffffff;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -88,7 +107,6 @@
       color: #888;
     }
 
-  
     .social-links {
       display: flex;
       justify-content: center;
@@ -108,34 +126,36 @@
       transform: translateY(-3px) scale(1.05);
     }
 
- 
-
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .now-playing {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      font-size: 0.9em;
+      color: #ffffff;
     }
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2em;
-      }
+    .now-playing a {
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
 
-      .social-links a {
-        font-size: 1.8em;
-      }
+    .now-playing a:hover {
+      color: #00acee;
     }
   </style>
 </head>
 <body>
+  <div class="loading-screen" onclick="enter()">click anywhere to enter</div>
+
   <video class="bg" autoplay muted loop>
     <source src="background.mp4" type="video/mp4">
-    get a better browser monkey
+    get a better browser buddy
   </video>
 
   <div class="container">
     <header>
-      <img src="duck.jpg" alt="Profile Picture of Gavin Strikes">
+      <img src="duck.jpg" alt="duck">
       <h1>GavinStrikes</h1>
       <p>Incompetent Cybersecurity Researcher</p>
     </header>
@@ -154,18 +174,28 @@
     </section>
   </div>
 
-
-
+  <div class="now-playing">
+    now playing: <a href="https://www.youtube.com/watch?v=fzQ6gRAEoy0&pp=ygVgUG9ydGVyIFJvYmluc29uICYgTWFkZW9uIC0gU2hlbHRlciAoT2ZmaWNpYWwgVmlkZW8pIChTaG9ydCBGaWxtIHdpdGggQS0xIFBpY3R1cmVzICYgQ3J1bmNoeXJvbGwp" target="_blank">Porter Robinson & Madeon - Shelter (Official Video)</a>
+  </div>
+  
+  <audio id="background-audio" src="shelter.mp3"></audio>
   <script>
-    function discordnotice() {
-      document.getElementById('accept').style.display = 'none';
-      localStorage.setItem('caccepted', 'true');
-    }
+    function enter() {
+      const loadingScreen = document.querySelector('.loading-screen');
+      const container = document.querySelector('.container');
+      const audio = document.getElementById('background-audio');
 
-    window.onload = function() {
-      if (!localStorage.getItem('caccepted')) {
-        document.getElementById('cconest').style.display = 'flex';
-      }
+      loadingScreen.classList.add('fade-out');
+
+    
+      setTimeout(() => {
+        container.style.display = 'block';
+        audio.volume = 0.2; 
+        audio.play().catch(error => {
+          console.error("audio no workie", error);
+          alert("it brokie");
+        });
+      }, 1000); 
     }
   </script>
 </body>
