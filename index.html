@@ -15,6 +15,22 @@
       box-sizing: border-box;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
     body {
       font-family: 'Arial', sans-serif;
       color: #e0e0e0;
@@ -42,6 +58,7 @@
       z-index: 10;
       opacity: 1;
       transition: opacity 1s ease;
+      animation: pulse 2s infinite;
     }
 
     .loading-screen.fade-out {
@@ -72,10 +89,12 @@
       transition: transform 0.3s ease;
       transform: translateY(-10px);
       display: none;
+      animation: fadeIn 1s ease forwards;
     }
 
     header {
       margin-bottom: 30px;
+      animation: slideIn 1s ease;
     }
 
     header img {
@@ -86,6 +105,7 @@
       margin-top: 25px;
       border: 4px solid #ffffff;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 3s infinite;
     }
 
     header img:hover {
@@ -98,6 +118,7 @@
       margin-bottom: 10px;
       font-size: 2.5em;
       font-weight: bold;
+      animation: fadeIn 1.5s ease;
     }
 
     header p {
@@ -105,6 +126,7 @@
       margin: 0;
       font-style: italic;
       color: #888;
+      animation: fadeIn 2s ease;
     }
 
     .social-links {
@@ -113,6 +135,7 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 18px;
+      animation: fadeIn 2.5s ease;
     }
 
     .social-links a {
@@ -132,12 +155,26 @@
       left: 10px;
       font-size: 0.9em;
       color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 8px 12px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      animation: slideIn 1s ease;
+    }
+
+    .now-playing-icon {
+      margin-right: 10px;
+      animation: pulse 2s infinite;
     }
 
     .now-playing a {
       color: #ffffff;
       text-decoration: none;
       transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .now-playing a:hover {
@@ -175,9 +212,15 @@
   </div>
 
   <div class="now-playing">
-    now playing: <a href="https://www.youtube.com/watch?v=fzQ6gRAEoy0&pp=ygVgUG9ydGVyIFJvYmluc29uICYgTWFkZW9uIC0gU2hlbHRlciAoT2ZmaWNpYWwgVmlkZW8pIChTaG9ydCBGaWxtIHdpdGggQS0xIFBpY3R1cmVzICYgQ3J1bmNoeXJvbGwp" target="_blank">Porter Robinson & Madeon - Shelter (Official Video)</a>
+    <div class="now-playing-icon">
+      <i class="fas fa-music"></i>
+    </div>
+    Now Playing: 
+    <a href="https://www.youtube.com/watch?v=fzQ6gRAEoy0&pp=ygVgUG9ydGVyIFJvYmluc29uICYgTWFkZW9uIC0gU2hlbHRlciAoT2ZmaWNpYWwgVmlkZW8pIChTaG9ydCBGaWxtIHdpdGggQS0xIFBpY3R1cmVzICYgQ3J1bmNoeXJvbGwp" target="_blank">
+      Porter Robinson & Madeon - Shelter (Official Video)
+    </a>
   </div>
-  
+
   <audio id="background-audio" src="shelter.mp3"></audio>
   <script>
     function enter() {
@@ -187,15 +230,14 @@
 
       loadingScreen.classList.add('fade-out');
 
-    
       setTimeout(() => {
         container.style.display = 'block';
-        audio.volume = 0.2; 
+        audio.volume = 0.2;
         audio.play().catch(error => {
           console.error("audio no workie", error);
           alert("it brokie");
         });
-      }, 1000); 
+      }, 1000);
     }
   </script>
 </body>
